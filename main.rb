@@ -20,6 +20,7 @@ pidigits_num = configs['number_of_digits']
 
 set :bind, '0.0.0.0'
 set :lock, true
+set :port, configs['sinatra_port']
 
 get '/' do
   getout = {

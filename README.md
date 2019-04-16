@@ -20,19 +20,30 @@ given are the tested versions and are not necessarily hard requirements:
 
 1. Modify `config.json` to reflect values of interest to you.
 2. Run `ruby main.rb` to start the web server
-3. Make web calls against the url of the server on port 4567
+3. Make web calls against the url of the server on port configured port.
 
 `test.sh` provides a sane example of a load generation script that can
 effectively drive load on the application.
 
 ### Config File
+
 `config.json` can be used to set an arbitrary version number and message.
 This is useful for setting off automatic deployments if you have such
 a process in place.
 
-Currently, the only setting in `config.json` that has a practical
-impact on the application itself is `number_of_digits`. This
-sets the number of digits of Pi for the application to calculate.
+#### version
+
+This is an arbitrary designation. This is a good field to tweak in order
+to kick of CI/CD pipelines and differentiate between multiple running
+versions.
+
+#### message
+Similarly to 'version', this field is mostly for alteration to differentiate
+multiple running iterations of this application from each other.
+
+#### number_of_digits
+
+`number_of_digits` sets the number of digits of Pi for the application to calculate.
 Since this application is single-threaded, the primary practical impact
 of changing this value is how much memory the application will consume.
 
@@ -44,6 +55,10 @@ Table showing approximate Memory usage based on number of digits with
 |1000 |370MB|
 |1500 |450MB|
 |2500 |2.5GB|
+
+#### sinatra_port
+
+This is simply the port that the server will listen on.
 
 ### Testing recommendations
 For stability purposes, it is recommended not to use more than 32

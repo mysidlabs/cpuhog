@@ -1,5 +1,6 @@
 {
   "version":"1.0",
   "message":"Hey, there. This is a generic message to return via the server!",
-  "number_of_digits": 1000
+  "number_of_digits": 1000,
+  "sinatra_port": 8080
 }
