@@ -12,6 +12,7 @@ compatibility is likely, it is not guaranteed.
 
 The following Ruby gems are required to run the application. Versions
 given are the tested versions and are not necessarily hard requirements:
+
 * `gmp` - 0.7.43
 * `sinatra` - 2.0.5
 
