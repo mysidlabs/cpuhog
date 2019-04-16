@@ -1,0 +1,11 @@
+CPU Hog Scaling Test Application
+Copyright 2019 Matthew Godby.
+
+This product includes software snippets contirbuted to The Computer
+Language Benchmarks Game by Aaron Tavistock. Specifically,
+the Pi digits calculation code in pidigits.rb was taken from this
+location and modified into class format for consumption by other
+ruby processes.
+
+Benchmarks Game:
+https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
