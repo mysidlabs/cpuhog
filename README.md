@@ -80,7 +80,7 @@ programs.
 The original code from this is preserved in pidigits.orig.rb
 
 Link to benchmark game:
-https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
+https://benchmarksgame-team.pages.debian.net/benchmarksgame/
 
 Link to snippet contribution:
 https://benchmarksgame-team.pages.debian.net/benchmarksgame/program/pidigits-yarv-5.html
