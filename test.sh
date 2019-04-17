@@ -3,7 +3,7 @@
 genload(){
     i=1
     while [ $i -lt $1 ]; do
-        curl localhost:4567
+        curl localhost:8080
     i=$[$i+1]
     done
 }
