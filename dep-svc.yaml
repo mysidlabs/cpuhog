@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpuhog
+  labels:
+    mysidlabs.com/app: cpuhog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      mysidlabs.com/app: cpuhog
+  template:
+    metadata:
+      labels:
+        mysidlabs.com/app: cpuhog
+    spec:
+      containers:
+      - name: cpuhog
+        image: staranto/cpuhog
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+      terminationGracePeriodSeconds: 0
+...
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-cpuhog
+  #labels:
+  #  mysidlabs.com/app: cpuhog
+spec:
+  selector:
+    mysidlabs.com/app: cpuhog
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: http
+...
+
