@@ -24,6 +24,7 @@ set :port, configs['sinatra_port']
 
 get '/' do
   getout = {
+      "digits" => pidigits_num,
       "version" => version,
       "message" => message,
       "ip_addresses" => []
