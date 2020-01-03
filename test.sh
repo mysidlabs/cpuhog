@@ -10,5 +10,4 @@ genload(){
 
 for i in {1..$1}; do
     genload $1 $2 &
-    echo 11111
 done

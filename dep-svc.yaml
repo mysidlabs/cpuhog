@@ -17,11 +17,15 @@ spec:
     spec:
       containers:
       - name: cpuhog
-        image: staranto/cpuhog
-        imagePullPolicy: IfNotPresent
+        image: mysidlabs/cpuhog
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
           name: http
+        resources:
+          limits:
+            cpu: "250m"
+            memory: "384Mi"
       terminationGracePeriodSeconds: 0
 ...
 ---
