@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: cpuhog-template
+  annotations:
+    description: "cpuhog load generator"
+    tags: "ruby,demo"
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: ${APP_NAME}
+  spec:
+    replicas: 1
+    selector:
+      app: ${APP_NAME}
+      deploymentconfig: ${APP_NAME}
+    strategy:
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: ${APP_NAME}
+          deploymentconfig: ${APP_NAME}
+      spec:
+        containers:
+        - image: ${IMG_SRC}:${IMG_TAG}
+          imagePullPolicy: Always
+          name: ${APP_NAME}
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+            - name: CPUHOG_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: ${APP_NAME}
+                  key: CPUHOG_MESSAGE
+                  # optional: true
+            - name: CPUHOG_PIDIGITS
+              valueFrom:
+                configMapKeyRef:
+                  name: ${APP_NAME}
+                  key: CPUHOG_PIDIGITS
+                  # optional: true
+          envFrom:
+            - configMapRef:
+                name: ${APP_NAME}
+          resources:
+            requests:
+              cpu: 75m
+              memory: 200Mi
+            limits:
+              cpu: 150m
+              memory: 300Mi
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 8080
+          timeoutSeconds: 2
+        restartPolicy: Always
+    triggers:
+    - type: ConfigChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: ${APP_NAME}
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ${APP_NAME}
+      deploymentconfig: ${APP_NAME}
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: ${APP_NAME}
+  spec:
+    scaleTargetRef:
+      apiVersion: apps.openshift.io/v1
+      kind: DeploymentConfig
+      name: ${APP_NAME}
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 60
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${APP_NAME}
+  spec:
+    host: ${APP_NAME}.apps.ocp1.mysidlabs.com
+    port:
+      targetPort: 8080
+    to:
+      kind: Service
+      name: ${APP_NAME}
+parameters:
+- description: Instance unique name
+  name: APP_NAME
+  value: cpuhog
+- description: Source Image
+  name: IMG_SRC
+  value: xspiritusx/cpuhog
+- description: Source Image Tag
+  name: IMG_TAG
+  value: latest
+- description: Number of digits of pi to calculate
+  name: PI_DIGITS
+  value: "1500"
+- description: Custom message for application to return
+  name: CPUHOG_MESSAGE
+  value: This is an example message
+labels:
+  app_family: cpuhog

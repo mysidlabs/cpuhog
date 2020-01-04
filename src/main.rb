@@ -15,14 +15,17 @@ configs = JSON.parse(File.open("#{appdir}/config.json").read)
 # Get IP address
 
 version = configs['version']
-message = configs['message']
-pidigits_num = configs['number_of_digits']
+
+
+message = ENV["CPUHOG_MESSAGE"] || message = configs['message']
+pidigits_num = ENV["CPUHOG_PIDIGITS"] || pidigits_num = configs['number_of_digits']
+listen_port = ENV["CPUHOG_SINATRA_PORT"] || sinatra_port = configs['sinatra_port']
 
 set :bind, '0.0.0.0'
 set :lock, true
-set :port, configs['sinatra_port']
+set :port, sinatra_port
 
-get '/' do
+get '/calc' do
   getout = {
       "digits" => pidigits_num,
       "version" => version,
@@ -46,3 +49,6 @@ get '/' do
   JSON.pretty_generate(getout)
 end
 
+get '/status' do
+  "UP"
+end

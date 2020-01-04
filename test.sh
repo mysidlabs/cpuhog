@@ -1,13 +1,15 @@
 #!/bin/bash
 
 genload(){
-    i=1
+    i=0
     while [ $i -lt $1 ]; do
-        curl $2
+        curl $2/calc
+        echo $i
     i=$[$i+1]
     done
 }
 
-for i in {1..$1}; do
-    genload $1 $2 &
+for i in $(seq 1 $1); do
+    genload $2 $3 &
+    echo Started thread $i
 done

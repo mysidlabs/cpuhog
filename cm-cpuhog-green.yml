@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cpuhog-green
+data:
+  CPUHOG_PIDIGITS: "1000"
+  CPUHOG_MESSAGE: "Welcome to CPU Hog Green!"

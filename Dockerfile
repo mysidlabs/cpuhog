@@ -7,11 +7,9 @@ RUN apk update && apk upgrade && apk add bash $BUILD_PACKAGES
 
 WORKDIR /usr/src/app
 
-COPY Gemfile Gemfile.lock ./
+COPY src/* ./
 
 RUN bundle install
-
-COPY . .
 
 RUN rm -rf /var/cache/apk/*
 
