@@ -19,6 +19,20 @@ spec:
       - name: cpuhog
         image: mysidlabs/cpuhog
         imagePullPolicy: Always
+        env:
+          - name: CPUHOG_MESSAGE
+            valueFrom:
+              configMapKeyRef:
+                name: cpuhog-green
+                key: CPUHOG_MESSAGE
+          - name: CPUHOG_PIDIGITS
+            valueFrom:
+              configMapKeyRef:
+                name: cpuhog-green
+                key: CPUHOG_PIDIGITS
+        envFrom:
+          - configMapRef:
+              name: cpuhog-green
         ports:
         - containerPort: 8080
           name: http
