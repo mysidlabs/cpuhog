@@ -1,15 +1,28 @@
 #!/bin/bash
 
 genload(){
-    i=0
-    while [ $i -lt $1 ]; do
-        curl $2/calc
-        echo $i
+    i=1
+    while [ $i -le $1 ]; do
+        echo $(curl -s $2/calc) "," | tee -a $j | jq 2> /dev/null
     i=$[$i+1]
     done
 }
 
-for i in $(seq 1 $1); do
-    genload $2 $3 &
-    echo Started thread $i
+t=$1
+l=$2
+u=$3
+j=$(mktemp)
+
+echo "[" > $j
+
+for i in $(seq 1 $t); do
+    echo Starting threads $i...
+    genload $l $u &
 done
+
+wait && echo "{}]" >> $j
+
+echo -e "Summary...\n\n   # Pod"
+jq -r '[ .[] | select(length>0) ] | .[].ip_addresses[1]' $j | sort -i | uniq -c
+
+[[ -f "$j" ]] && rm $j
