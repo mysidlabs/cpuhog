@@ -107,7 +107,7 @@ parameters:
   value: cpuhog
 - description: Source Image
   name: IMG_SRC
-  value: xspiritusx/cpuhog
+  value: mysidlabs/cpuhog
 - description: Source Image Tag
   name: IMG_TAG
   value: latest
