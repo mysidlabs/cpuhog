@@ -102,6 +102,14 @@ objects:
     to:
       kind: Service
       name: ${APP_NAME}
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: ${APP_NAME}
+  data:
+    CPUHOG_PIDIGITS: ${PI_DIGITS}
+    CPUHOG_MESSAGE: "Welcome to ${APP_NAME}!"
+
 parameters:
 - description: Instance unique name
   name: APP_NAME
