@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: rq-sjt 
+  name: rq-sid
 spec:
   hard:
     requests.cpu: "1"
