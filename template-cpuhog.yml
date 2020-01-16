@@ -89,7 +89,7 @@ objects:
       kind: Deployment
       name: ${APP_NAME}
     minReplicas: 2
-    maxReplicas: 10
+    maxReplicas: 8 
     targetCPUUtilizationPercentage: 60
 - apiVersion: route.openshift.io/v1
   kind: Route
