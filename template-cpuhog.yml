@@ -96,7 +96,7 @@ objects:
   metadata:
     name: ${APP_NAME}
   spec:
-    host: ${APP_NAME}.apps.ocp1.mysidlabs.com
+    host: ""
     port:
       targetPort: 8080
     to:
