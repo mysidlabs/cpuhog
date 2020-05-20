@@ -90,7 +90,7 @@ objects:
       name: ${APP_NAME}
     minReplicas: 2
     maxReplicas: 8 
-    targetCPUUtilizationPercentage: 60
+    targetCPUUtilizationPercentage: 3 0
 - apiVersion: route.openshift.io/v1
   kind: Route
   metadata:
