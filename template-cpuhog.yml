@@ -28,7 +28,7 @@ objects:
       spec:
         containers:
         - image: ${IMG_SRC}:${IMG_TAG}
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           name: ${APP_NAME}
           ports:
           - containerPort: 8080
